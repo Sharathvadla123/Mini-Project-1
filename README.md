@@ -1,4 +1,4 @@
-# Mini-Project-1
+# Hive Mini-Project-1
 This is as apart of Ineuron Course assignments for Big Data
 ---------------------------------------------------------------
 
