@@ -1,0 +1,199 @@
+[cloudera@quickstart ~]$ ls -l
+total 720
+-rw-rw-r-- 1 cloudera cloudera  55351 Nov  3 02:52 AgentLogingReport.csv
+-rw-rw-r-- 1 cloudera cloudera 109853 Nov  3 02:52 AgentPerformance.csv
+-rwxrwxr-x 1 cloudera cloudera   5387 Oct 23  2017 cloudera-manager
+-rwxrwxr-x 1 cloudera cloudera   9964 Oct 23  2017 cm_api.py
+-rw-rw-r-- 1 cloudera cloudera     69 Oct 13 07:43 cricket.csv
+-rw-rw-r-- 1 cloudera cloudera     68 Oct 13 07:41 cricket.csv~
+drwxrwxr-x 2 cloudera cloudera   4096 Nov  3 06:38 Desktop
+drwxrwxr-x 4 cloudera cloudera   4096 Oct 23  2017 Documents
+drwxr-xr-x 3 cloudera cloudera   4096 Nov  3 07:14 Downloads
+drwxrwsr-x 9 cloudera cloudera   4096 Feb 19  2015 eclipse
+-rw-rw-r-- 1 cloudera cloudera  53655 Oct 23  2017 enterprise-deployment.json
+-rw-rw-r-- 1 cloudera cloudera  50515 Oct 23  2017 express-deployment.json
+-rwxrwxr-x 1 cloudera cloudera   5007 Oct 23  2017 kerberos
+drwxrwxr-x 2 cloudera cloudera   4096 Oct 23  2017 lib
+drwxr-xr-x 2 cloudera cloudera   4096 Aug 29 05:41 Music
+-rwxrwxr-x 1 cloudera cloudera   4228 Oct 23  2017 parcels
+drwxr-xr-x 2 cloudera cloudera   4096 Aug 29 05:41 Pictures
+drwxr-xr-x 2 cloudera cloudera   4096 Aug 29 05:41 Public
+-rw-rw-r-- 1 cloudera cloudera 360233 Oct  6 10:19 sales_order_data.csv
+-rw-rw-r-- 1 cloudera cloudera     66 Oct 13 06:02 Sample.csv
+-rw-rw-r-- 1 cloudera cloudera     66 Oct 13 06:00 Sample.csv~
+drwxr-xr-x 2 cloudera cloudera   4096 Aug 29 05:41 Templates
+drwxr-xr-x 2 cloudera cloudera   4096 Aug 29 05:41 Videos
+drwxrwxr-x 4 cloudera cloudera   4096 Oct 23  2017 workspace
+[cloudera@quickstart ~]$ hdfs dfs -ls /
+Found 12 items
+drwxr-xr-x   - cloudera supergroup          0 2022-10-13 02:08 /assignment_1
+drwxrwxrwx   - hdfs     supergroup          0 2017-10-23 09:15 /benchmarks
+drwxr-xr-x   - cloudera supergroup          0 2022-10-01 02:33 /class_2
+drwxr-xr-x   - cloudera supergroup          0 2022-10-01 02:53 /class_3
+drwxr-xr-x   - hbase    supergroup          0 2022-09-01 06:35 /hbase
+drwxr-xr-x   - cloudera supergroup          0 2022-11-03 09:17 /miniproject1
+drwxr-xr-x   - cloudera supergroup          0 2022-11-03 05:40 /miniproject2
+drwxr-xr-x   - cloudera supergroup          0 2022-09-30 12:08 /practice
+drwxr-xr-x   - solr     solr                0 2017-10-23 09:18 /solr
+drwxrwxrwt   - hdfs     supergroup          0 2022-08-29 05:41 /tmp
+drwxr-xr-x   - hdfs     supergroup          0 2017-10-23 09:17 /user
+drwxr-xr-x   - hdfs     supergroup          0 2017-10-23 09:17 /var
+[cloudera@quickstart ~]$ hdfs dfs -ls /miniproject1
+[cloudera@quickstart ~]$ hdfs dfs -ls /miniproject2
+[cloudera@quickstart ~]$ hdfs dfs -copyFromLocal /home/cloudera/AgentLogingReport.csv /miniproject1
+[cloudera@quickstart ~]$ hdfs dfs -copyFromLocal /home/cloudera/AgentPerformance.csv /miniproject2
+[cloudera@quickstart ~]$ hdfs dfs -ls /miniproject1
+Found 1 items
+-rw-r--r--   1 cloudera supergroup      55351 2022-11-04 05:34 /miniproject1/AgentLogingReport.csv
+[cloudera@quickstart ~]$ hdfs dfs -ls /miniproject2
+Found 1 items
+-rw-r--r--   1 cloudera supergroup     109853 2022-11-04 05:34 /miniproject2/AgentPerformance.csv
+[cloudera@quickstart ~]$ hive
+
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j.properties
+WARNING: Hive CLI is deprecated and migration to Beeline is recommended.
+hive> show databases;
+OK
+championship
+default
+Time taken: 1.086 seconds, Fetched: 2 row(s)
+hive> use championship;
+OK
+Time taken: 0.156 seconds
+hive> show tables;
+OK
+t20_cricket
+Time taken: 0.161 seconds, Fetched: 1 row(s)
+hive> create table agentlogingreport(
+    > sl_no int,
+    > agent string,
+    > date string,
+    > login string,
+    > logout string,
+    > duration string)
+    > row format delimited
+    > fields terminated by ','
+    > tblproperties('skip.header.line.count'='1');
+OK
+Time taken: 1.736 seconds
+hive> describe formatted agentlogingreport;
+OK
+# col_name            	data_type           	comment             
+	 	 
+sl_no               	int                 	                    
+agent               	string              	                    
+date                	string              	                    
+login               	string              	                    
+logout              	string              	                    
+duration            	string              	                    
+	 	 
+# Detailed Table Information	 	 
+Database:           	championship        	 
+Owner:              	cloudera            	 
+CreateTime:         	Fri Nov 04 05:42:40 PDT 2022	 
+LastAccessTime:     	UNKNOWN             	 
+Protect Mode:       	None                	 
+Retention:          	0                   	 
+Location:           	hdfs://quickstart.cloudera:8020/user/hive/warehouse/championship.db/agentlogingreport	 
+Table Type:         	MANAGED_TABLE       	 
+Table Parameters:	 	 
+	skip.header.line.count	1                   
+	transient_lastDdlTime	1667565760          
+	 	 
+# Storage Information	 	 
+SerDe Library:      	org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe	 
+InputFormat:        	org.apache.hadoop.mapred.TextInputFormat	 
+OutputFormat:       	org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat	 
+Compressed:         	No                  	 
+Num Buckets:        	-1                  	 
+Bucket Columns:     	[]                  	 
+Sort Columns:       	[]                  	 
+Storage Desc Params:	 	 
+	field.delim         	,                   
+	serialization.format	,                   
+Time taken: 0.338 seconds, Fetched: 33 row(s)
+hive> set hive.cli.print.header=true;
+hive> set hive.resultset.use.unique.column.names=false;
+hive> load data inpath '/miniproject1/' into table agentlogingreport;
+Loading data to table championship.agentlogingreport
+Table championship.agentlogingreport stats: [numFiles=1, totalSize=55351]
+OK
+Time taken: 0.487 seconds
+hive> select * from agentlogingreport limit 5;
+OK
+sl_no	agent	date	login	logout	duration
+1	Shivananda Sonwane	30-Jul-22	15:35:29	17:39:39	02:04:10
+2	Khushboo Priya	30-Jul-22	15:06:59	15:07:16	00:00:17
+3	Nandani Gupta	30-Jul-22	15:04:24	17:31:07	02:26:42
+4	Hrisikesh Neogi	30-Jul-22	14:34:29	15:19:35	00:45:06
+5	Mukesh	30-Jul-22	14:03:15	15:11:52	01:08:36
+Time taken: 0.484 seconds, Fetched: 5 row(s)
+hive> create table agentperformance(
+    > sl_no int,
+    > date string,
+    > agent string,
+    > chats int,
+    > average_responsetime string,
+    > average_resolutiontime string,
+    > average_rating float,
+    > feedback int)
+    > row format delimited
+    > fields terminated by ','
+    > tblproperties('skip.header.line.count'='1');
+OK
+Time taken: 0.215 seconds
+hive> describe formatted agentperformance;
+OK
+col_name	data_type	comment
+# col_name            	data_type           	comment             
+	 	 
+sl_no               	int                 	                    
+date                	string              	                    
+agent               	string              	                    
+chats               	int                 	                    
+average_responsetime	string              	                    
+average_resolutiontime	string              	                    
+average_rating      	float               	                    
+feedback            	int                 	                    
+	 	 
+# Detailed Table Information	 	 
+Database:           	championship        	 
+Owner:              	cloudera            	 
+CreateTime:         	Fri Nov 04 05:47:58 PDT 2022	 
+LastAccessTime:     	UNKNOWN             	 
+Protect Mode:       	None                	 
+Retention:          	0                   	 
+Location:           	hdfs://quickstart.cloudera:8020/user/hive/warehouse/championship.db/agentperformance	 
+Table Type:         	MANAGED_TABLE       	 
+Table Parameters:	 	 
+	skip.header.line.count	1                   
+	transient_lastDdlTime	1667566078          
+	 	 
+# Storage Information	 	 
+SerDe Library:      	org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe	 
+InputFormat:        	org.apache.hadoop.mapred.TextInputFormat	 
+OutputFormat:       	org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat	 
+Compressed:         	No                  	 
+Num Buckets:        	-1                  	 
+Bucket Columns:     	[]                  	 
+Sort Columns:       	[]                  	 
+Storage Desc Params:	 	 
+	field.delim         	,                   
+	serialization.format	,                   
+Time taken: 0.046 seconds, Fetched: 35 row(s)
+hive> set hive.cli.print.header=true;
+hive> set hive.resultset.use.unique.column.names=false;
+hive> load data inpath '/miniproject2/' into table agentperformance;
+Loading data to table championship.agentperformance
+Table championship.agentperformance stats: [numFiles=1, totalSize=109853]
+OK
+Time taken: 0.498 seconds
+hive> select * from agentperformance limit 5;
+OK
+sl_no	date	agent	chats	average_responsetime	average_resolutiontime	average_rating	feedback
+1	7/30/2022	Prerna Singh	11	0:00:38	0:04:20	4.11	9
+2	7/30/2022	Nandani Gupta	11	0:01:15	0:28:25	3.14	7
+3	7/30/2022	Ameya Jain	14	0:00:30	0:11:36	4.55	11
+4	7/30/2022	Mahesh Sarade	14	0:01:04	0:15:46	4.71	7
+5	7/30/2022	Swati 	14	0:01:11	0:16:33	3.67	6
+Time taken: 0.078 seconds, Fetched: 5 row(s)

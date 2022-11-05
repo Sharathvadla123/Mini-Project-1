@@ -1,0 +1,207 @@
+OK
+Time taken: 2.026 seconds
+hive> set hive.exec.dynamic.partition.mode=nonstrict;
+hive> set hive.enforce.bucketing=true;
+hive> create table agentlogingreport_partbuck(
+    > sl_no int,
+    > date string,
+    > login string,
+    > logout string,
+    > duration string)
+    > partitioned by (agent string)
+    > clustered by (sl_no)
+    > sorted by (sl_no)
+    > into 2 buckets;
+OK
+Time taken: 0.056 seconds
+
+hive> insert overwrite table agentlogingreport_partbuck partition(agent) select sl_no,date,login,logout,duration,agent from agentlogingreport;
+Query ID = cloudera_20221105011111_01c9c067-ee37-4747-b079-5f5523f7a321
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 2
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1662039219975_0136, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1662039219975_0136/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1662039219975_0136
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 2
+2022-11-05 01:11:46,368 Stage-1 map = 0%,  reduce = 0%
+2022-11-05 01:11:59,970 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 1.6 sec
+2022-11-05 01:12:27,439 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 6.85 sec
+MapReduce Total cumulative CPU time: 6 seconds 850 msec
+Ended Job = job_1662039219975_0136
+Loading data to table championship.agentlogingreport_partbuck partition (agent=null)
+	 Time taken for load dynamic partitions : 5659
+	Loading partition {agent=Suraj S Bilgi}
+	Loading partition {agent=Shivan K}
+	Loading partition {agent=Dibyanshu}
+	Loading partition {agent=Aravind}
+	Loading partition {agent=Wasim}
+	Loading partition {agent=Harikrishnan Shaji}
+	Loading partition {agent=Prateek _iot}
+	Loading partition {agent=Mukesh}
+	Loading partition {agent=Nandani Gupta}
+	Loading partition {agent=Deepranjan Gupta}
+	Loading partition {agent=Aditya Shinde}
+	Loading partition {agent=Nishtha Jain}
+	Loading partition {agent=Prabir Kumar Satapathy}
+	Loading partition {agent=Tarun}
+	Loading partition {agent=Swati}
+	Loading partition {agent=Mithun S}
+	Loading partition {agent=Jawala Prakash}
+	Loading partition {agent=Sudhanshu Kumar}
+	Loading partition {agent=Chaitra K Hiremath}
+	Loading partition {agent=Ayushi Mishra}
+	Loading partition {agent=Ineuron Intelligence}
+	Loading partition {agent=Shiva Srivastava}
+	Loading partition {agent=Prerna Singh}
+	Loading partition {agent=Maitry}
+	Loading partition {agent=Amersh}
+	Loading partition {agent=Zeeshan}
+	Loading partition {agent=Sowmiya Sivakumar}
+	Loading partition {agent=Hrisikesh Neogi}
+	Loading partition {agent=Aditya_iot}
+	Loading partition {agent=Ankitjha}
+	Loading partition {agent=Khushboo Priya}
+	Loading partition {agent=Saurabh Shukla}
+	Loading partition {agent=Manjunatha A}
+	Loading partition {agent=Ishawant Kumar}
+	Loading partition {agent=Boktiar Ahmed Bappy}
+	Loading partition {agent=Shubham Sharma}
+	Loading partition {agent=Madhulika G}
+	Loading partition {agent=Hyder Abbas}
+	Loading partition {agent=Saikumarreddy N}
+	Loading partition {agent=Sanjeev Kumar}
+	Loading partition {agent=Nitin M}
+	Loading partition {agent=Rishav Dash}
+	Loading partition {agent=Jaydeep Dixit}
+	Loading partition {agent=Bharath}
+	Loading partition {agent=Ameya Jain}
+	Loading partition {agent=Anurag Tiwari}
+	Loading partition {agent=Shivananda Sonwane}
+	Loading partition {agent=Muskan Garg}
+	Loading partition {agent=Mahesh Sarade}
+	 Time taken for adding to write entity : 19
+Partition championship.agentlogingreport_partbuck{agent=Aditya Shinde} stats: [numFiles=2, numRows=1, totalSize=41, rawDataSize=40]
+Partition championship.agentlogingreport_partbuck{agent=Aditya_iot} stats: [numFiles=2, numRows=9, totalSize=368, rawDataSize=359]
+Partition championship.agentlogingreport_partbuck{agent=Amersh} stats: [numFiles=2, numRows=4, totalSize=164, rawDataSize=160]
+Partition championship.agentlogingreport_partbuck{agent=Ameya Jain} stats: [numFiles=2, numRows=10, totalSize=409, rawDataSize=399]
+Partition championship.agentlogingreport_partbuck{agent=Ankitjha} stats: [numFiles=2, numRows=4, totalSize=164, rawDataSize=160]
+Partition championship.agentlogingreport_partbuck{agent=Anurag Tiwari} stats: [numFiles=2, numRows=37, totalSize=1500, rawDataSize=1463]
+Partition championship.agentlogingreport_partbuck{agent=Aravind} stats: [numFiles=2, numRows=10, totalSize=409, rawDataSize=399]
+Partition championship.agentlogingreport_partbuck{agent=Ayushi Mishra} stats: [numFiles=2, numRows=18, totalSize=729, rawDataSize=711]
+Partition championship.agentlogingreport_partbuck{agent=Bharath} stats: [numFiles=2, numRows=9, totalSize=359, rawDataSize=350]
+Partition championship.agentlogingreport_partbuck{agent=Boktiar Ahmed Bappy} stats: [numFiles=2, numRows=17, totalSize=680, rawDataSize=663]
+Partition championship.agentlogingreport_partbuck{agent=Chaitra K Hiremath} stats: [numFiles=2, numRows=13, totalSize=530, rawDataSize=517]
+Partition championship.agentlogingreport_partbuck{agent=Deepranjan Gupta} stats: [numFiles=2, numRows=58, totalSize=2359, rawDataSize=2301]
+Partition championship.agentlogingreport_partbuck{agent=Dibyanshu} stats: [numFiles=2, numRows=208, totalSize=8361, rawDataSize=8153]
+Partition championship.agentlogingreport_partbuck{agent=Harikrishnan Shaji} stats: [numFiles=2, numRows=23, totalSize=931, rawDataSize=908]
+Partition championship.agentlogingreport_partbuck{agent=Hrisikesh Neogi} stats: [numFiles=2, numRows=37, totalSize=1493, rawDataSize=1456]
+Partition championship.agentlogingreport_partbuck{agent=Hyder Abbas} stats: [numFiles=2, numRows=2, totalSize=82, rawDataSize=80]
+Partition championship.agentlogingreport_partbuck{agent=Ineuron Intelligence} stats: [numFiles=2, numRows=1, totalSize=41, rawDataSize=40]
+Partition championship.agentlogingreport_partbuck{agent=Ishawant Kumar} stats: [numFiles=2, numRows=49, totalSize=1980, rawDataSize=1931]
+Partition championship.agentlogingreport_partbuck{agent=Jawala Prakash} stats: [numFiles=2, numRows=16, totalSize=636, rawDataSize=620]
+Partition championship.agentlogingreport_partbuck{agent=Jaydeep Dixit} stats: [numFiles=2, numRows=11, totalSize=448, rawDataSize=437]
+Partition championship.agentlogingreport_partbuck{agent=Khushboo Priya} stats: [numFiles=2, numRows=18, totalSize=726, rawDataSize=708]
+Partition championship.agentlogingreport_partbuck{agent=Madhulika G} stats: [numFiles=2, numRows=17, totalSize=687, rawDataSize=670]
+Partition championship.agentlogingreport_partbuck{agent=Mahesh Sarade} stats: [numFiles=2, numRows=36, totalSize=1468, rawDataSize=1432]
+Partition championship.agentlogingreport_partbuck{agent=Maitry} stats: [numFiles=2, numRows=5, totalSize=200, rawDataSize=195]
+Partition championship.agentlogingreport_partbuck{agent=Manjunatha A} stats: [numFiles=2, numRows=8, totalSize=318, rawDataSize=310]
+Partition championship.agentlogingreport_partbuck{agent=Mithun S} stats: [numFiles=2, numRows=14, totalSize=564, rawDataSize=550]
+Partition championship.agentlogingreport_partbuck{agent=Mukesh} stats: [numFiles=2, numRows=3, totalSize=121, rawDataSize=118]
+Partition championship.agentlogingreport_partbuck{agent=Muskan Garg} stats: [numFiles=2, numRows=12, totalSize=491, rawDataSize=479]
+Partition championship.agentlogingreport_partbuck{agent=Nandani Gupta} stats: [numFiles=2, numRows=11, totalSize=447, rawDataSize=436]
+Partition championship.agentlogingreport_partbuck{agent=Nishtha Jain} stats: [numFiles=2, numRows=18, totalSize=728, rawDataSize=710]
+Partition championship.agentlogingreport_partbuck{agent=Nitin M} stats: [numFiles=2, numRows=1, totalSize=41, rawDataSize=40]
+Partition championship.agentlogingreport_partbuck{agent=Prabir Kumar Satapathy} stats: [numFiles=2, numRows=26, totalSize=1054, rawDataSize=1028]
+Partition championship.agentlogingreport_partbuck{agent=Prateek _iot} stats: [numFiles=2, numRows=17, totalSize=690, rawDataSize=673]
+Partition championship.agentlogingreport_partbuck{agent=Prerna Singh} stats: [numFiles=2, numRows=18, totalSize=735, rawDataSize=717]
+Partition championship.agentlogingreport_partbuck{agent=Rishav Dash} stats: [numFiles=2, numRows=12, totalSize=481, rawDataSize=469]
+Partition championship.agentlogingreport_partbuck{agent=Saikumarreddy N} stats: [numFiles=2, numRows=10, totalSize=410, rawDataSize=400]
+Partition championship.agentlogingreport_partbuck{agent=Sanjeev Kumar} stats: [numFiles=2, numRows=20, totalSize=815, rawDataSize=795]
+Partition championship.agentlogingreport_partbuck{agent=Saurabh Shukla} stats: [numFiles=2, numRows=40, totalSize=1608, rawDataSize=1568]
+Partition championship.agentlogingreport_partbuck{agent=Shiva Srivastava} stats: [numFiles=2, numRows=15, totalSize=612, rawDataSize=597]
+Partition championship.agentlogingreport_partbuck{agent=Shivan K} stats: [numFiles=2, numRows=36, totalSize=1458, rawDataSize=1422]
+Partition championship.agentlogingreport_partbuck{agent=Shivananda Sonwane} stats: [numFiles=2, numRows=15, totalSize=600, rawDataSize=585]
+Partition championship.agentlogingreport_partbuck{agent=Shubham Sharma} stats: [numFiles=2, numRows=35, totalSize=1425, rawDataSize=1390]
+Partition championship.agentlogingreport_partbuck{agent=Sowmiya Sivakumar} stats: [numFiles=2, numRows=24, totalSize=972, rawDataSize=948]
+Partition championship.agentlogingreport_partbuck{agent=Sudhanshu Kumar} stats: [numFiles=2, numRows=11, totalSize=446, rawDataSize=435]
+Partition championship.agentlogingreport_partbuck{agent=Suraj S Bilgi} stats: [numFiles=2, numRows=5, totalSize=200, rawDataSize=195]
+Partition championship.agentlogingreport_partbuck{agent=Swati} stats: [numFiles=2, numRows=5, totalSize=205, rawDataSize=200]
+Partition championship.agentlogingreport_partbuck{agent=Tarun} stats: [numFiles=2, numRows=1, totalSize=42, rawDataSize=41]
+Partition championship.agentlogingreport_partbuck{agent=Wasim} stats: [numFiles=2, numRows=20, totalSize=813, rawDataSize=793]
+Partition championship.agentlogingreport_partbuck{agent=Zeeshan} stats: [numFiles=2, numRows=10, totalSize=409, rawDataSize=399]
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 2   Cumulative CPU: 6.85 sec   HDFS Read: 67811 HDFS Write: 47806 SUCCESS
+Total MapReduce CPU Time Spent: 6 seconds 850 msec
+OK
+sl_no	date	login	logout	duration	agent
+Time taken: 66.625 seconds
+hive> exit;
+WARN: The method class org.apache.commons.logging.impl.SLF4JLogFactory#release() was invoked.
+WARN: Please see http://www.slf4j.org/codes.html#release for an explanation.
+
+[cloudera@quickstart ~]$ hdfs dfs -ls /user/hive/warehouse
+Found 1 items
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:08 /user/hive/warehouse/championship.db
+
+[cloudera@quickstart ~]$ hdfs dfs -ls /user/hive/warehouse/championship.db/agentlogingreport_partbuck
+Found 49 items
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Aditya Shinde
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Aditya_iot
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Amersh
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Ameya Jain
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Ankitjha
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Anurag Tiwari
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Aravind
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Ayushi Mishra
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Bharath
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Boktiar Ahmed Bappy
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Chaitra K Hiremath
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Deepranjan Gupta
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Dibyanshu
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Harikrishnan Shaji
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Hrisikesh Neogi
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Hyder Abbas
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Ineuron Intelligence
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Ishawant Kumar
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Jawala Prakash
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Jaydeep Dixit
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Khushboo Priya
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Madhulika G
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Mahesh Sarade
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Maitry
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Manjunatha A
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Mithun S
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Mukesh
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Muskan Garg
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Nandani Gupta
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Nishtha Jain
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Nitin M
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Prabir Kumar Satapathy
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Prateek _iot
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Prerna Singh
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Rishav Dash
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Saikumarreddy N
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Sanjeev Kumar
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Saurabh Shukla
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Shiva Srivastava
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Shivan K
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Shivananda Sonwane
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Shubham Sharma
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Sowmiya Sivakumar
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Sudhanshu Kumar
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Suraj S Bilgi
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Swati
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Tarun
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Wasim
+drwxrwxrwx   - cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Zeeshan
+[cloudera@quickstart ~]$ hdfs dfs -ls /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Amersh
+Found 2 items
+-rwxrwxrwx   1 cloudera supergroup          0 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Amersh/000000_0
+-rwxrwxrwx   1 cloudera supergroup        164 2022-11-05 01:12 /user/hive/warehouse/championship.db/agentlogingreport_partbuck/agent=Amersh/000001_0
+[cloudera@quickstart ~]$ 

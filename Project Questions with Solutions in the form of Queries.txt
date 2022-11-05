@@ -1,0 +1,83 @@
+	This is a real time dataset of the ineuron technical consultant team. You have to perform hive analysis on this given dataset.
+
+Download Dataset 1 - https://drive.google.com/file/d/1WrG-9qv6atP-W3P_-gYln1hHyFKRKMHP/view
+
+Download Dataset 2 - https://drive.google.com/file/d/1-JIPCZ34dyN6k9CqJa-Y8yxIGq6vTVXU/view
+
+Note: both files are csv files. 
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. Create a schema based on the given dataset
+2. Dump the data inside the hdfs in the given schema location.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+3. List of all agents' names.
+
+Query - select distinct(agent) as agents from agentperformance; 
+-----------------------------------------------------------------------------------------------------------------------------------------------
+ 
+4. Find out agent average rating.
+
+Query - select agent,avg(average_rating) as final_rating from agentperformance group by agent;
+-------------------------------------------------------------------------------------------------------------------------------------------------
+5. Total working days for each agents 
+
+Query - select agent,count(distinct(date)) as working_days from agentlogingreport group by agent;
+-------------------------------------------------------------------------------------------------------------------------------------------------
+6. Total query that each agent have taken 
+
+Query - select agent,sum(chats) as total_query from agentperformance group by agent;
+-------------------------------------------------------------------------------------------------------------------------------------------------
+7. Total Feedback that each agent have received 
+
+Query - select agent,sum(feedback) as total_feedback from agentperformance group by agent;
+---------------------------------------------------------------------------------------------------------------------------------------------------
+8. Agent name who have average rating between 3.5 to 4 
+
+Query - select agent,avg(average_rating) as final_rating from agentperformance group by agent having final_rating between 3.5 and 4;
+------------------------------------------------------------------------------------------------------------------------------------------------
+9. Agent name who have rating less than 3.5 
+
+Query - select agent,avg(average_rating) as final_rating from agentperformance group by agent having final_rating < 3.5;
+---------------------------------------------------------------------------------------------------------------------------------------------------
+10. Agent name who have rating more than 4.5 
+
+Query - select agent,avg(average_rating) as final_rating from agentperformance group by agent having final_rating > 4.5;  - Zero Records
+---------------------------------------------------------------------------------------------------------------------------------------------------
+11. How many feedback agents have received more than 4.5 average
+
+Query - select agent,avg(average_rating) as final_rating,sum(feedback) as total_feedback from agentperformance group by agent having final_rating > 4.5; - Zero Records
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+12. average weekly response time for each agent 
+
+Query - select agent,weekofyear(from_unixtime(unix_timestamp(date,'mm/dd/yyyy'),'yyyy-mm-dd')) as week_no,sum(hour(average_responsetime)*60*60+minute(average_responsetime)*60+
+second(average_responsetime))/(count(*)*60) as avg_responsetime_minutes from agentperformance group by agent,weekofyear(from_unixtime(unix_timestamp(date,'mm/dd/yyyy'),'yyyy-mm-dd')); 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+13. average weekly resolution time for each agents 
+
+Query - select agent,weekofyear(from_unixtime(unix_timestamp(date,'mm/dd/yyyy'),'yyyy-mm-dd')) as week_no,sum(hour(average_resolutiontime)*60*60+minute(average_resolutiontime)*60+
+second(average_resolutiontime))/(count(*)*60) as avg_resolutiontime_minutes from agentperformance group by agent,weekofyear(from_unixtime(unix_timestamp(date,'mm/dd/yyyy'),'yyyy-mm-dd'));
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+14. Find the number of chat on which they have received a feedback 
+
+Query - select sum(chats) as total_chats,sum(feedback) as total_feedback from agentperformance group by agent having total_feedback !=0;
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+15. Total contribution hour for each and every agents weekly basis
+
+Query - select agent,weekofyear(date) as week_no,sum(hour(duration)*60*60+minute(duration)*60+second(duration))/(60*60) 
+as total_contribution_hours from agentlogingreport group by agent,weekofyear(date); 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+16. Perform inner join, left join and right join based on the agent column and after joining the table export that data into your local system.
+
+Query - 1. select a.agent as agent,a.date as date,a.login as login,a.logout as logout,a.duration as duration,b.date as date,b.chats as chats,b.average_responsetime as 
+average_responsetime,b.average_resolutiontime as average_resolutiontime,b.average_rating as average_rating,b.feedback as feedback from agentlogingreport a join agentperformance b 
+on a.agent=b.agent; 
+        
+        2. select a.agent as agent,a.date as date,a.login as login,a.logout as logout,a.duration as duration,b.date as date,b.chats as chats,b.average_responsetime as 
+average_responsetime,b.average_resolutiontime as average_resolutiontime,b.average_rating as average_rating,b.feedback as feedback from agentlogingreport a left join agentperformance b 
+on a.agent=b.agent;
+
+        3. select a.agent as agent,a.date as date,a.login as login,a.logout as logout,a.duration as duration,b.date as date,b.chats as chats,b.average_responsetime as 
+average_responsetime,b.average_resolutiontime as average_resolutiontime,b.average_rating as average_rating,b.feedback as feedback from agentlogingreport a right join agentperformance b 
+on a.agent=b.agent; 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+17. Perform partitioning on top of the agent column and then on top of that perform bucketing for each partitioning.
